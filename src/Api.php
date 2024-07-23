@@ -13,6 +13,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Upmind\Sdk\Config;
 use Upmind\Sdk\Data\AbstractParams;
 use Upmind\Sdk\Data\ApiResponse;
@@ -42,11 +43,11 @@ class Api
         ?StreamFactoryInterface $streamFactory = null,
     ) {
         $httpClient = $httpClient ?? Psr18ClientDiscovery::find();
-        $logger = $logger ?? new DefaultLogger();
+        $defaultLogger = $config->isDebug() ? new DefaultLogger() : new NullLogger();
 
         $this->config = $config;
         $this->httpClient = (new PluginClientFactory())->createClient($httpClient, [
-            new LoggerPlugin($logger, new FullHttpMessageFormatter(null))
+            new LoggerPlugin($logger ?? $defaultLogger, new FullHttpMessageFormatter(null))
         ]);
         $this->requestFactory = $requestFactory ?? Psr17FactoryDiscovery::findRequestFactory();
         $this->streamFactory = $streamFactory ?? Psr17FactoryDiscovery::findStreamFactory();
