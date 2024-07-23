@@ -17,6 +17,14 @@ class ApiResponse
     }
 
     /**
+     * Determine whether the API response was successful.
+     */
+    public function isSuccessful(): bool
+    {
+        return $this->getHttpCode() >= 200 && $this->getHttpCode() < 300;
+    }
+
+    /**
      * Get the HTTP status code of the response.
      */
     public function getHttpCode(): int
@@ -25,11 +33,11 @@ class ApiResponse
     }
 
     /**
-     * Get the API response status; either 'ok' or 'error'.
+     * Get the API response status if a body is returned.
      */
-    public function getResponseStatus(): ?string
+    public function getResponseStatus(): ?ResponseStatus
     {
-        return $this->decodedBody['status'] ?? null;
+        return ResponseStatus::tryFrom($this->decodedBody['status'] ?? null);
     }
 
     /**
