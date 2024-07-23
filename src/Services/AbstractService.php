@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace Upmind\Sdk\Services;
 
+use Upmind\Sdk\Api;
+
 abstract class AbstractService
 {
+    public function __construct(
+        protected Api $api
+    ) {
+        //
+    }
+
     /**
      * Fill path parameters in the URI.
      *

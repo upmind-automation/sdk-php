@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Upmind\Sdk\Services\Clients;
 
-use Upmind\Sdk\Api;
 use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Services\AbstractService;
@@ -19,12 +18,6 @@ class ClientService extends AbstractService
     private const CLIENTS_URI = '/api/admin/clients';
     private const CLIENT_URI = '/api/admin/clients/{id}';
 
-    public function __construct(
-        private Api $api
-    ) {
-        //
-    }
-
     /**
      * Create a new client.
      */
@@ -37,7 +30,7 @@ class ClientService extends AbstractService
     }
 
     /**
-     * Create a new client.
+     * Update an existing client.
      */
     public function updateClient(string $id, UpdateClientParams $bodyParams): ApiResponse
     {
