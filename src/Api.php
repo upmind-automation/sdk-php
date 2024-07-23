@@ -20,6 +20,7 @@ use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Logging\DefaultLogger;
 use Upmind\Sdk\Services\Clients\AddressService;
 use Upmind\Sdk\Services\Clients\ClientService;
+use Upmind\Sdk\Services\Clients\EmailService;
 use Upmind\Sdk\Services\Clients\PhoneService;
 
 /**
@@ -67,11 +68,19 @@ class Api
     }
 
     /**
-     * Service for managing client phones.
+     * Service for managing client phone numbers.
      */
     public function phoneService(): PhoneService
     {
         return new PhoneService($this);
+    }
+
+    /**
+     * Service for managing client email addresses.
+     */
+    public function emailService(): EmailService
+    {
+        return new EmailService($this);
     }
 
     /**
