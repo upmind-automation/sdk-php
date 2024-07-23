@@ -18,8 +18,12 @@ use Upmind\Sdk\Data\AbstractParams;
 use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Logging\DefaultLogger;
+use Upmind\Sdk\Services\Clients\AddressService;
 use Upmind\Sdk\Services\Clients\ClientService;
 
+/**
+ * Upmind API SDK Client.
+ */
 class Api
 {
     private Config $config;
@@ -45,9 +49,20 @@ class Api
         $this->streamFactory = $streamFactory ?? Psr17FactoryDiscovery::findStreamFactory();
     }
 
+    /**
+     * Service for managing clients (customers).
+     */
     public function clientService(): ClientService
     {
         return new ClientService($this);
+    }
+
+    /**
+     * Service for managing client addresses.
+     */
+    public function addressService(): AddressService
+    {
+        return new AddressService($this);
     }
 
     /**
