@@ -19,7 +19,10 @@ abstract class AbstractParams implements JsonSerializable
         //
     }
 
-    public static function create(array $params = []): static
+    /**
+     * Obtain a new instance.
+     */
+    public static function new(array $params = []): static
     {
         return new static($params);
     }
