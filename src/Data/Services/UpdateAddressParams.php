@@ -54,6 +54,6 @@ class UpdateAddressParams extends AbstractParams
 
     public function setVerified(bool $verified): self
     {
-        return $this->setParam('verified', $verified);
+        return $this->setParam('verified', (int)$verified);
     }
 }
