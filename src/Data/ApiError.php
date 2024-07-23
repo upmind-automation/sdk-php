@@ -24,6 +24,14 @@ class ApiError
     }
 
     /**
+     * Get the error type, if any.
+     */
+    public function getType(): int
+    {
+        return (int)$this->data['type'];
+    }
+
+    /**
      * Get the error code.
      */
     public function getCode(): string
