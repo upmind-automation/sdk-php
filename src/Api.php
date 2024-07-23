@@ -157,7 +157,7 @@ class Api
             ->withHeader('Authorization', 'Bearer ' . $this->config->getToken());
 
         if (!empty($bodyParams?->toArray())) {
-            if (in_array(strtolower($method), ['HEAD', 'GET', 'DELETE'])) {
+            if (in_array(strtoupper($method), ['HEAD', 'GET', 'DELETE'])) {
                 throw new \InvalidArgumentException('Request body is not allowed for this method');
             }
 
