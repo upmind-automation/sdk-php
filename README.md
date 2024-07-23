@@ -106,7 +106,7 @@ if ($response->isSuccessful()) {
 
 ### Creating Resources
 
-Create methods are typed with a DTO containing setter methods to help you identify which parameters are available. When a resource is created successfully, an `id` will be returned which can be used to fetch and manage the resource later.
+Create methods are typed with DTOs containing setter methods to help you identify which parameters are available. When a resource is created successfully, an `id` will be returned which can be used to fetch and manage the resource later.
 
 ```php
 use Upmind\Sdk\Data\CreateEmailParams;
