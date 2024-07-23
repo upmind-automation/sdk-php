@@ -30,6 +30,10 @@ shell:
 static-analysis:
 	docker exec -it $(CONTAINER_NAME) ./vendor/bin/phpstan analyse --memory-limit=1G
 
+# Run php-cs-fixer
+coding-standards:
+	docker exec -it $(CONTAINER_NAME) php ./bin/php-cs-fixer-v3.phar fix --config=./.php-cs-fixer.dist.php
+
 # Clean target
 clean:
 	docker rm -f $(CONTAINER_NAME)
