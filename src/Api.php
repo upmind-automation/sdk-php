@@ -20,6 +20,7 @@ use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Logging\DefaultLogger;
 use Upmind\Sdk\Services\Clients\AddressService;
 use Upmind\Sdk\Services\Clients\ClientService;
+use Upmind\Sdk\Services\Clients\PhoneService;
 
 /**
  * Upmind API SDK Client.
@@ -63,6 +64,14 @@ class Api
     public function addressService(): AddressService
     {
         return new AddressService($this);
+    }
+
+    /**
+     * Service for managing client phones.
+     */
+    public function phoneService(): PhoneService
+    {
+        return new PhoneService($this);
     }
 
     /**
