@@ -9,6 +9,7 @@ use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Services\AbstractService;
 use Upmind\Sdk\Data\Services\CreateClientParams;
+use Upmind\Sdk\Data\Services\UpdateClientParams;
 
 /**
  * Service for managing clients (customers).
@@ -31,6 +32,17 @@ class ClientService extends AbstractService
     {
         return $this->api->post(
             self::CLIENTS_URI,
+            $bodyParams
+        );
+    }
+
+    /**
+     * Create a new client.
+     */
+    public function updateClient(string $id, UpdateClientParams $bodyParams): ApiResponse
+    {
+        return $this->api->put(
+            $this->fillPathParams(self::CLIENT_URI, ['id' => $id]),
             $bodyParams
         );
     }

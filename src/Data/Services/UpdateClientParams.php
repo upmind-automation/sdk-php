@@ -8,9 +8,9 @@ use DateTimeInterface;
 use Upmind\Sdk\Data\AbstractParams;
 
 /**
- * Parameters for creating a new client.
+ * Parameters for updating an existing client.
  */
-class CreateClientParams extends AbstractParams
+class UpdateClientParams extends AbstractParams
 {
     public function setFirstName(string $firstName): static
     {
@@ -35,19 +35,9 @@ class CreateClientParams extends AbstractParams
         return $this->setParam('username', $username);
     }
 
-    public function setBrandId(string $brandId): static
-    {
-        return $this->setParam('brand_id', $brandId);
-    }
-
     public function setPassword(string $password): static
     {
         return $this->setParam('password', $password);
-    }
-
-    public function setPasswordHash(string $passwordHash): static
-    {
-        return $this->setParam('password_hash', $passwordHash);
     }
 
     public function setPricelistId(string $pricelistId): static
