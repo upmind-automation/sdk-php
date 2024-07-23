@@ -59,9 +59,10 @@ $config = new Config(
     debug: true, // stream api requests + responses to STDERR by default
 );
 $api = new Api($config);
+$service = $api->clientService();
 
 $clientId = '467029e9-d574-1484-680f-e10683283ed5';
-$response = $api->clientService()->getClient($clientId);
+$response = $service->getClient($clientId);
 if ($response->isSuccessful()) {
     $clientData = $response->getResponseData();
     // ...
