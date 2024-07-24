@@ -80,6 +80,6 @@ abstract class AbstractParams implements JsonSerializable
 
     protected function formatDateTime(DateTimeInterface $dateTime): string
     {
-        return $dateTime()->format('Y-m-d H:i:s');
+        return $dateTime->format('Y-m-d H:i:s');
     }
 }
