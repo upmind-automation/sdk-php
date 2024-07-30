@@ -9,10 +9,12 @@ namespace Upmind\Sdk\Data;
  */
 class ApiError
 {
+    private array $data;
+
     public function __construct(
-        private array $data
+        array $data
     ) {
-        //
+        $this->data = $data;
     }
 
     /**

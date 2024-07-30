@@ -40,7 +40,7 @@ class Api
         ?LoggerInterface $logger = null,
         ?ClientInterface $httpClient = null,
         ?RequestFactoryInterface $requestFactory = null,
-        ?StreamFactoryInterface $streamFactory = null,
+        ?StreamFactoryInterface $streamFactory = null
     ) {
         $httpClient = $httpClient ?? Psr18ClientDiscovery::find();
         $defaultLogger = $config->isDebug() ? new DefaultLogger() : new NullLogger();
@@ -156,7 +156,7 @@ class Api
             ->withHeader('User-Agent', $this->getUserAgent())
             ->withHeader('Authorization', 'Bearer ' . $this->config->getToken());
 
-        if (!empty($bodyParams?->toArray())) {
+        if (!empty($bodyParams ? $bodyParams->toArray() : null)) {
             if (in_array(strtoupper($method), ['HEAD', 'GET', 'DELETE'])) {
                 throw new \InvalidArgumentException('Request body is not allowed for this method');
             }
@@ -188,7 +188,7 @@ class Api
 
     private function fillDefaultParams(QueryParams $queryParams, ?AbstractParams $bodyParams = null): void
     {
-        $fillParams = !empty($bodyParams?->toArray())
+        $fillParams = !empty($bodyParams ? $bodyParams->toArray() : null)
             ? $bodyParams
             : $queryParams;
 

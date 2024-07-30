@@ -13,16 +13,18 @@ use JsonSerializable;
  */
 abstract class AbstractParams implements JsonSerializable
 {
+    protected array $params = [];
+
     final public function __construct(
-        protected array $params = []
+        array $params = []
     ) {
-        //
+        $this->params = $params;
     }
 
     /**
      * Obtain a new instance.
      */
-    public static function new(array $params = []): static
+    public static function new(array $params = []): self
     {
         return new static($params);
     }
@@ -30,7 +32,7 @@ abstract class AbstractParams implements JsonSerializable
     /**
      * Set a parameter value.
      */
-    public function setParam(string $param, mixed $value): static
+    public function setParam(string $param, $value): self
     {
         $this->params[$param] = $value;
 
@@ -40,7 +42,7 @@ abstract class AbstractParams implements JsonSerializable
     /**
      * Fill the brand id param without overwriting an existing value if set.
      */
-    public function fillBrandId(string $brandId): static
+    public function fillBrandId(string $brandId): self
     {
         return $this->fillParam('brand_id', $brandId);
     }
@@ -48,7 +50,7 @@ abstract class AbstractParams implements JsonSerializable
     /**
      * Fill the without_notifications param without overwriting an existing value if set.
      */
-    public function fillWithoutNotifications(bool $withoutNotifications): static
+    public function fillWithoutNotifications(bool $withoutNotifications): self
     {
         return $this->fillParam('without_notifications', $withoutNotifications);
     }
@@ -56,7 +58,7 @@ abstract class AbstractParams implements JsonSerializable
     /**
      * Fill a parameter value without overwriting if the value is already set.
      */
-    public function fillParam(string $param, mixed $value): static
+    public function fillParam(string $param, $value): self
     {
         if (!isset($this->params[$param])) {
             $this->setParam($param, $value);
@@ -73,7 +75,7 @@ abstract class AbstractParams implements JsonSerializable
         return $this->params;
     }
 
-    public function jsonSerialize(): mixed
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

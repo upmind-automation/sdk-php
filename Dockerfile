@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:7.4-apache
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install zip intl soap sodium
 
-RUN pecl install xdebug-3.3.2 \
+RUN pecl install xdebug-3.1.6 \
     && pecl install uuid \
     && docker-php-ext-enable xdebug uuid
 
