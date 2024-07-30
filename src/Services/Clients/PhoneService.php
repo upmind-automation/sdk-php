@@ -8,6 +8,7 @@ use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Data\Services\CreatePhoneParams;
 use Upmind\Sdk\Data\Services\UpdatePhoneParams;
+use Upmind\Sdk\Exception\HttpException;
 use Upmind\Sdk\Services\AbstractService;
 
 /**
@@ -20,6 +21,8 @@ class PhoneService extends AbstractService
 
     /**
      * Create a new phone.
+     *
+     * @throws HttpException if configured
      */
     public function createPhone(string $clientId, CreatePhoneParams $bodyParams): ApiResponse
     {
@@ -31,6 +34,8 @@ class PhoneService extends AbstractService
 
     /**
      * Update an existing phone.
+     *
+     * @throws HttpException if configured
      */
     public function updatePhone(string $clientId, string $phoneId, UpdatePhoneParams $bodyParams): ApiResponse
     {
@@ -42,6 +47,8 @@ class PhoneService extends AbstractService
 
     /**
      * Get a list of phones for a client.
+     *
+     * @throws HttpException if configured
      */
     public function listPhones(string $clientId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -53,6 +60,8 @@ class PhoneService extends AbstractService
 
     /**
      * Get a single phone.
+     *
+     * @throws HttpException if configured
      */
     public function getPhone(string $clientId, string $phoneId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -64,6 +73,8 @@ class PhoneService extends AbstractService
 
     /**
      * Delete a client's phone.
+     *
+     * @throws HttpException if configured
      */
     public function deletePhone(string $clientId, string $phoneId): ApiResponse
     {

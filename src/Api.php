@@ -96,6 +96,8 @@ class Api
 
     /**
      * Send a GET request to the Upmind API.
+     *
+     * @throws HttpException if configured
      */
     public function get(string $uri, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -104,6 +106,8 @@ class Api
 
     /**
      * Send a POST request to the Upmind API.
+     *
+     * @throws HttpException if configured
      */
     public function post(string $uri, AbstractParams $body = null, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -112,6 +116,8 @@ class Api
 
     /**
      * Send a PUT request to the Upmind API.
+     *
+     * @throws HttpException if configured
      */
     public function put(string $uri, AbstractParams $body = null, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -120,6 +126,8 @@ class Api
 
     /**
      * Send a PATCH request to the Upmind API.
+     *
+     * @throws HttpException if configured
      */
     public function patch(string $uri, AbstractParams $body = null, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -128,6 +136,8 @@ class Api
 
     /**
      * Send a DELETE request to the Upmind API.
+     *
+     * @throws HttpException if configured
      */
     public function delete(string $uri, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -136,6 +146,8 @@ class Api
 
     /**
      * Send a HTTP request to the Upmind API.
+     *
+     * @throws HttpException if configured
      */
     public function sendRequest(
         string $method,

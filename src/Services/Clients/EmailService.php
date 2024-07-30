@@ -8,6 +8,7 @@ use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Data\Services\CreateEmailParams;
 use Upmind\Sdk\Data\Services\UpdateEmailParams;
+use Upmind\Sdk\Exception\HttpException;
 use Upmind\Sdk\Services\AbstractService;
 
 /**
@@ -20,6 +21,8 @@ class EmailService extends AbstractService
 
     /**
      * Create a new email.
+     *
+     * @throws HttpException if configured
      */
     public function createEmail(string $clientId, CreateEmailParams $bodyParams): ApiResponse
     {
@@ -31,6 +34,8 @@ class EmailService extends AbstractService
 
     /**
      * Update an existing email.
+     *
+     * @throws HttpException if configured
      */
     public function updateEmail(string $clientId, string $emailId, UpdateEmailParams $bodyParams): ApiResponse
     {
@@ -42,6 +47,8 @@ class EmailService extends AbstractService
 
     /**
      * Get a list of emails for a client.
+     *
+     * @throws HttpException if configured
      */
     public function listEmails(string $clientId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -53,6 +60,8 @@ class EmailService extends AbstractService
 
     /**
      * Get a single email.
+     *
+     * @throws HttpException if configured
      */
     public function getEmail(string $clientId, string $emailId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -64,6 +73,8 @@ class EmailService extends AbstractService
 
     /**
      * Delete a client's email.
+     *
+     * @throws HttpException if configured
      */
     public function deleteEmail(string $clientId, string $emailId): ApiResponse
     {
