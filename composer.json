@@ -25,12 +25,16 @@
         "psr/log": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.11"
+        "phpstan/phpstan": "^1.11",
+        "phpunit/phpunit": "^9.0"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
             "php-http/discovery": false
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
     }
 }
