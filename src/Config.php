@@ -15,6 +15,7 @@ class Config
     private bool $debug;
     private string $hostname;
     private string $protocol;
+    private bool $restfulExceptions;
 
     /**
      * @param string $token  Your Upmind API token
@@ -23,6 +24,7 @@ class Config
      * @param bool $debug Whether or not to stream API requests + responses to STDERR by default
      * @param string $hostname
      * @param string $protocol
+     * @param bool $restfulExceptions
      */
     public function __construct(
         string $token,
@@ -30,7 +32,8 @@ class Config
         bool $withoutNotifications = false,
         bool $debug = false,
         string $hostname = 'api.upmind.io',
-        string $protocol = 'https'
+        string $protocol = 'https',
+        bool $restfulExceptions = false
     ) {
         $this->token = $token;
         $this->brandId = $brandId;
@@ -38,6 +41,7 @@ class Config
         $this->debug = $debug;
         $this->hostname = $hostname;
         $this->protocol = $protocol;
+        $this->restfulExceptions = $restfulExceptions;
     }
 
     public function getToken(): string
@@ -68,5 +72,10 @@ class Config
     public function getProtocol(): string
     {
         return $this->protocol;
+    }
+
+    public function restfulExceptions(): bool
+    {
+        return $this->restfulExceptions;
     }
 }

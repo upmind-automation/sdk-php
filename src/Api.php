@@ -18,6 +18,7 @@ use Upmind\Sdk\Config;
 use Upmind\Sdk\Data\AbstractParams;
 use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
+use Upmind\Sdk\Exception\HttpException;
 use Upmind\Sdk\Logging\DefaultLogger;
 use Upmind\Sdk\Services\Clients\AddressService;
 use Upmind\Sdk\Services\Clients\ClientService;
@@ -170,7 +171,15 @@ class Api
                 );
         }
 
-        return new ApiResponse($this->httpClient->sendRequest($request));
+        $response = new ApiResponse($this->httpClient->sendRequest($request));
+
+        $error = $response->getResponseError();
+
+        if ($this->config->restfulExceptions() && $error) {
+            throw new HttpException($response, $error);
+        }
+
+        return $response;
     }
 
     private function addQueryParams(string $uri, QueryParams $queryParams): string
