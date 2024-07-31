@@ -23,6 +23,8 @@ abstract class AbstractParams implements JsonSerializable
 
     /**
      * Obtain a new instance.
+     *
+     * @return static
      */
     public static function new(array $params = []): self
     {
@@ -31,6 +33,8 @@ abstract class AbstractParams implements JsonSerializable
 
     /**
      * Set a parameter value.
+     *
+     * @return static
      */
     public function setParam(string $param, $value): self
     {
@@ -41,6 +45,8 @@ abstract class AbstractParams implements JsonSerializable
 
     /**
      * Fill the brand id param without overwriting an existing value if set.
+     *
+     * @return static
      */
     public function fillBrandId(string $brandId): self
     {
@@ -49,6 +55,8 @@ abstract class AbstractParams implements JsonSerializable
 
     /**
      * Fill the without_notifications param without overwriting an existing value if set.
+     *
+     * @return static
      */
     public function fillWithoutNotifications(bool $withoutNotifications): self
     {
@@ -57,6 +65,8 @@ abstract class AbstractParams implements JsonSerializable
 
     /**
      * Fill a parameter value without overwriting if the value is already set.
+     *
+     * @return static
      */
     public function fillParam(string $param, $value): self
     {

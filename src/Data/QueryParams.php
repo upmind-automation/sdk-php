@@ -11,6 +11,8 @@ class QueryParams extends AbstractParams
 {
     /**
      * Set number of records to return for paginated GET list requests.
+     *
+     * @return static
      */
     public function setLimit(int $limit): self
     {
@@ -19,6 +21,8 @@ class QueryParams extends AbstractParams
 
     /**
      * Set record offset for paginated GET list requests.
+     *
+     * @return static
      */
     public function setOffset(int $offset): self
     {
@@ -29,6 +33,8 @@ class QueryParams extends AbstractParams
      * Set sort order for GET list requests.
      *
      * @param string|array $orderBy
+     *
+     * @return static
      */
     public function setOrderBy($orderBy): self
     {
@@ -39,6 +45,8 @@ class QueryParams extends AbstractParams
      * Set related resources to include in responses for GET requests.
      *
      * @param string|array $with
+     *
+     * @return static
      */
     public function setWith($with): self
     {
