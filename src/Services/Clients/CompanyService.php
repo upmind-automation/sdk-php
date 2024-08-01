@@ -8,6 +8,7 @@ use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Data\Services\CreateCompanyParams;
 use Upmind\Sdk\Data\Services\UpdateCompanyParams;
+use Upmind\Sdk\Exception\HttpException;
 use Upmind\Sdk\Services\AbstractService;
 
 /**
@@ -20,6 +21,8 @@ class CompanyService extends AbstractService
 
     /**
      * Create a new company.
+     *
+     * @throws HttpException if configured
      */
     public function createCompany(string $clientId, CreateCompanyParams $bodyParams): ApiResponse
     {
@@ -31,6 +34,8 @@ class CompanyService extends AbstractService
 
     /**
      * Update an existing company.
+     *
+     * @throws HttpException if configured
      */
     public function updateCompany(string $clientId, string $companyId, UpdateCompanyParams $bodyParams): ApiResponse
     {
@@ -42,6 +47,8 @@ class CompanyService extends AbstractService
 
     /**
      * Get a list of companies for a client.
+     *
+     * @throws HttpException if configured
      */
     public function listCompanies(string $clientId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -53,6 +60,8 @@ class CompanyService extends AbstractService
 
     /**
      * Get a single company.
+     *
+     * @throws HttpException if configured
      */
     public function getCompany(string $clientId, string $companyId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -64,6 +73,8 @@ class CompanyService extends AbstractService
 
     /**
      * Delete a client's company.
+     *
+     * @throws HttpException if configured
      */
     public function deleteCompany(string $clientId, string $companyId): ApiResponse
     {

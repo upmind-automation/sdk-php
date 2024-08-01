@@ -6,6 +6,7 @@ namespace Upmind\Sdk\Services\Clients;
 
 use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
+use Upmind\Sdk\Exception\HttpException;
 use Upmind\Sdk\Services\AbstractService;
 use Upmind\Sdk\Data\Services\CreateClientParams;
 use Upmind\Sdk\Data\Services\UpdateClientParams;
@@ -20,6 +21,8 @@ class ClientService extends AbstractService
 
     /**
      * Create a new client.
+     *
+     * @throws HttpException if configured
      */
     public function createClient(CreateClientParams $bodyParams): ApiResponse
     {
@@ -31,6 +34,8 @@ class ClientService extends AbstractService
 
     /**
      * Update an existing client.
+     *
+     * @throws HttpException if configured
      */
     public function updateClient(string $id, UpdateClientParams $bodyParams): ApiResponse
     {
@@ -42,6 +47,8 @@ class ClientService extends AbstractService
 
     /**
      * Get a list of clients.
+     *
+     * @throws HttpException if configured
      */
     public function listClients(?QueryParams $queryParams = null): ApiResponse
     {
@@ -53,6 +60,8 @@ class ClientService extends AbstractService
 
     /**
      * Get a single client.
+     *
+     * @throws HttpException if configured
      */
     public function getClient(string $id, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -64,6 +73,8 @@ class ClientService extends AbstractService
 
     /**
      * Delete a client.
+     *
+     * @throws HttpException if configured
      */
     public function deleteClient(string $id): ApiResponse
     {

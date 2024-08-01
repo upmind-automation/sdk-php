@@ -8,6 +8,7 @@ use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Data\Services\CreateAddressParams;
 use Upmind\Sdk\Data\Services\UpdateAddressParams;
+use Upmind\Sdk\Exception\HttpException;
 use Upmind\Sdk\Services\AbstractService;
 
 /**
@@ -20,6 +21,8 @@ class AddressService extends AbstractService
 
     /**
      * Create a new address.
+     *
+     * @throws HttpException if configured
      */
     public function createAddress(string $clientId, CreateAddressParams $bodyParams): ApiResponse
     {
@@ -31,6 +34,8 @@ class AddressService extends AbstractService
 
     /**
      * Update an existing address.
+     *
+     * @throws HttpException if configured
      */
     public function updateAddress(string $clientId, string $addressId, UpdateAddressParams $bodyParams): ApiResponse
     {
@@ -42,6 +47,8 @@ class AddressService extends AbstractService
 
     /**
      * Get a list of addresses for a client.
+     *
+     * @throws HttpException if configured
      */
     public function listAddresses(string $clientId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -53,6 +60,8 @@ class AddressService extends AbstractService
 
     /**
      * Get a single address.
+     *
+     * @throws HttpException if configured
      */
     public function getAddress(string $clientId, string $addressId, ?QueryParams $queryParams = null): ApiResponse
     {
@@ -64,6 +73,8 @@ class AddressService extends AbstractService
 
     /**
      * Delete a client's address.
+     *
+     * @throws HttpException if configured
      */
     public function deleteAddress(string $clientId, string $addressId): ApiResponse
     {
