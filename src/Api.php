@@ -18,7 +18,7 @@ use Upmind\Sdk\Config;
 use Upmind\Sdk\Data\AbstractParams;
 use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
-use Upmind\Sdk\Exception\HttpException;
+use Upmind\Sdk\Exceptions\HttpException;
 use Upmind\Sdk\Logging\DefaultLogger;
 use Upmind\Sdk\Services\Clients\AddressService;
 use Upmind\Sdk\Services\Clients\ClientService;

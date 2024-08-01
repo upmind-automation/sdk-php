@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Upmind\Sdk\Exception;
+namespace Upmind\Sdk\Exceptions;
 
 use Psr\Http\Message\ResponseInterface;
 use Upmind\Sdk\Data\ApiError;

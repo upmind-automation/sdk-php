@@ -6,7 +6,7 @@ namespace Upmind\Sdk\Services\Clients;
 
 use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
-use Upmind\Sdk\Exception\HttpException;
+use Upmind\Sdk\Exceptions\HttpException;
 use Upmind\Sdk\Services\AbstractService;
 use Upmind\Sdk\Data\Services\CreateClientParams;
 use Upmind\Sdk\Data\Services\UpdateClientParams;
