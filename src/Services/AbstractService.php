@@ -8,10 +8,12 @@ use Upmind\Sdk\Api;
 
 abstract class AbstractService
 {
+    protected Api $api;
+
     public function __construct(
-        protected Api $api
+        Api $api
     ) {
-        //
+        $this->api = $api;
     }
 
     /**

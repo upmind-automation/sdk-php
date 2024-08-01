@@ -19,6 +19,8 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Set the company tax/vat number.
+     *
+     * @return static
      */
     public function setVatNumber(string $vatNumber): self
     {
@@ -27,17 +29,25 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Set the company/id/reg number.
+     *
+     * @return static
      */
     public function setRegistrationNumber(string $regNumber): self
     {
         return $this->setParam('reg_number', $regNumber);
     }
 
+    /**
+     * @return static
+     */
     public function setDefault(bool $default): self
     {
         return $this->setParam('default', $default);
     }
 
+    /**
+     * @return static
+     */
     public function setVerified(bool $verified): self
     {
         return $this->setParam('verified', (int)$verified);
@@ -45,6 +55,8 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Use an existing address.
+     *
+     * @return static
      */
     public function setAddressId(string $addressId): self
     {
@@ -53,6 +65,8 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Create a new address.
+     *
+     * @return static
      */
     public function setAddressParams(CreateAddressParams $addressParams): self
     {
@@ -61,6 +75,8 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Use an existing phone number.
+     *
+     * @return static
      */
     public function setPhoneId(string $phoneId): self
     {
@@ -69,6 +85,8 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Create a new phone number.
+     *
+     * @return static
      */
     public function setPhoneParams(CreatePhoneParams $phoneParams): self
     {
@@ -77,6 +95,8 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Use an existing email address.
+     *
+     * @return static
      */
     public function setEmailId(string $emailId): self
     {
@@ -85,6 +105,8 @@ class CreateCompanyParams extends AbstractParams
 
     /**
      * Create a new email address.
+     *
+     * @return static
      */
     public function setEmailParams(CreateEmailParams $emailParams): self
     {

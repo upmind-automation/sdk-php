@@ -1,0 +1,12 @@
+services:
+
+  php:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "9009:9000"
+    volumes:
+      - ./:/var/www/html:delegated
