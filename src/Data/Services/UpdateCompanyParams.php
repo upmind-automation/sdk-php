@@ -22,7 +22,7 @@ class UpdateCompanyParams extends AbstractParams
 
     /**
      * Set the company tax/vat number.
-     * 
+     *
      * @return static
      */
     public function setVatNumber(?string $vatNumber): self
