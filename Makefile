@@ -32,7 +32,7 @@ static-analysis:
 
 # Run php-cs-fixer
 coding-standards:
-	docker exec -it $(CONTAINER_NAME) php ./bin/php-cs-fixer-v3.phar fix --config=./.php-cs-fixer.dist.php
+	docker exec -it $(CONTAINER_NAME) php ./vendor/bin/php-cs-fixer fix --config=./.php-cs-fixer.dist.php
 
 # Clean target
 clean:
