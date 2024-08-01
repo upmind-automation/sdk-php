@@ -2,3 +2,4 @@
 composer.lock
 .vscode/
 *.log
+.php-cs-fixer.cache
