@@ -25,13 +25,12 @@
         "psr/log": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.11",
-        "symfony/http-client": "^5.4"
+        "phpstan/phpstan": "^1.11"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "php-http/discovery": true
+            "php-http/discovery": false
         }
     }
 }
