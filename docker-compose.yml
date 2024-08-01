@@ -7,6 +7,6 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - "9009:9000"
+      - "9022:9000"
     volumes:
       - ./:/var/www/html:delegated
