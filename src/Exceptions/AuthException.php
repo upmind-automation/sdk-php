@@ -25,6 +25,6 @@ class AuthException extends ClientException
      */
     protected function getHint(): ?string
     {
-        return $this->getResponse()->getResponseMessages()['hint'] ?? null;
+        return $this->getApiResponse()->getResponseMessages()['hint'] ?? null;
     }
 }

@@ -19,7 +19,7 @@ class HttpException extends \Exception implements UpmindSdkException
     public function __construct(ApiResponse $apiResponse, ?string $message = null)
     {
         $this->apiResponse = $apiResponse;
-        $message = $message ?: $this->getError()->getMessage();
+        $message = $message ?: $this->getApiError()->getMessage();
         parent::__construct($message, $this->getHttpCode());
     }
 
@@ -28,12 +28,12 @@ class HttpException extends \Exception implements UpmindSdkException
         return $this->apiResponse->getHttpCode();
     }
 
-    public function getResponse(): ApiResponse
+    public function getApiResponse(): ApiResponse
     {
         return $this->apiResponse;
     }
 
-    public function getError(): ApiError
+    public function getApiError(): ApiError
     {
         return $this->apiResponse->getResponseError();
     }

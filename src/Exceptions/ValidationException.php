@@ -25,7 +25,7 @@ class ValidationException extends ClientException
      */
     public function getValidationErrors(): array
     {
-        return $this->getError()->getData();
+        return $this->getApiError()->getData();
     }
 
     protected function getValidationErrorMessage(): string
