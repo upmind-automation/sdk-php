@@ -6,7 +6,7 @@ All notable changes to the package will be documented in this file.
 
 - Initial stable release
 
-## v0.2.0 - TBC
+## v0.2.0 - 2024-08-02
 
 - Widen PHP version support to:
   - 7.4
