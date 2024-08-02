@@ -24,7 +24,7 @@ class Config
      * @param bool $debug Whether or not to stream API requests + responses to STDERR by default
      * @param string $hostname
      * @param string $protocol
-     * @param bool $restfulExceptions
+     * @param bool $restfulExceptions Set to false to disable HttpExceptions for API error responses
      */
     public function __construct(
         string $token,
@@ -33,7 +33,7 @@ class Config
         bool $debug = false,
         string $hostname = 'api.upmind.io',
         string $protocol = 'https',
-        bool $restfulExceptions = false
+        bool $restfulExceptions = true
     ) {
         $this->token = $token;
         $this->brandId = $brandId;

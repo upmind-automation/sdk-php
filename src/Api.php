@@ -14,11 +14,17 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Throwable;
 use Upmind\Sdk\Config;
 use Upmind\Sdk\Data\AbstractParams;
 use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
-use Upmind\Sdk\Exception\HttpException;
+use Upmind\Sdk\Exceptions\AuthException;
+use Upmind\Sdk\Exceptions\ClientException;
+use Upmind\Sdk\Exceptions\ConnectionException;
+use Upmind\Sdk\Exceptions\HttpException;
+use Upmind\Sdk\Exceptions\ServerException;
+use Upmind\Sdk\Exceptions\ValidationException;
 use Upmind\Sdk\Logging\DefaultLogger;
 use Upmind\Sdk\Services\Clients\AddressService;
 use Upmind\Sdk\Services\Clients\ClientService;
@@ -183,12 +189,14 @@ class Api
                 );
         }
 
-        $response = new ApiResponse($this->httpClient->sendRequest($request));
+        try {
+            $response = new ApiResponse($this->httpClient->sendRequest($request));
+        } catch (Throwable $e) {
+            $this->throwConnectionException($e);
+        }
 
-        $error = $response->getResponseError();
-
-        if ($this->config->restfulExceptions() && $error) {
-            throw new HttpException($response, $error);
+        if ($this->config->restfulExceptions() && !$response->isSuccessful()) {
+            $this->throwHttpException($response);
         }
 
         return $response;
@@ -227,5 +235,43 @@ class Api
             \Composer\InstalledVersions::getVersion('upmind/sdk') ?? 'dev',
             PHP_VERSION
         );
+    }
+
+    /**
+     * @return no-return|never
+     *
+     * @throws ConnectionException
+     */
+    private function throwConnectionException(Throwable $e): void
+    {
+        throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
+    }
+
+    /**
+     * @return no-return|never
+     *
+     * @throws HttpException
+     */
+    private function throwHttpException(ApiResponse $response): void
+    {
+        $httpCode = $response->getHttpCode();
+
+        if ($httpCode === 401) {
+            throw new AuthException($response);
+        }
+
+        if ($httpCode === 422) {
+            throw new ValidationException($response);
+        }
+
+        if ($httpCode >= 400 && $httpCode < 500) {
+            throw new ClientException($response);
+        }
+
+        if ($httpCode >= 500) {
+            throw new ServerException($response);
+        }
+
+        throw new HttpException($response, 'Unexpected Error');
     }
 }

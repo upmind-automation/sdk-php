@@ -8,7 +8,7 @@ use Upmind\Sdk\Data\ApiResponse;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Data\Services\CreateEmailParams;
 use Upmind\Sdk\Data\Services\UpdateEmailParams;
-use Upmind\Sdk\Exception\HttpException;
+use Upmind\Sdk\Exceptions\HttpException;
 use Upmind\Sdk\Services\AbstractService;
 
 /**
