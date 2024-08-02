@@ -21,7 +21,7 @@ This SDK can be used to streamline PHP integrations with the Upmind API.
 
 ## Requirements
 
-- PHP 8.2 or higher
+- PHP 7.4, 8.0, 8.1, 8.2 or 8.3
 - Composer
 - [Upmind Starter](https://upmind.com/pricing) plan or higher
 
