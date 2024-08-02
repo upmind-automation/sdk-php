@@ -27,7 +27,15 @@ class ApiTest extends TestCase
 
     protected function setUp(): void
     {
-        $config = new Config('hello-i-am-a-token');
+        $config = new Config(
+            'hello-i-am-a-token',
+            null,
+            false,
+            false,
+            'api.upmind.io',
+            'https',
+            false
+        );
         $logger = new NullLogger();
         $this->requestFactory = $this->getMockBuilder(RequestFactoryInterface::class)->getMock();
 
