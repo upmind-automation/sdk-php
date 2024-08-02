@@ -133,6 +133,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## Credits
 
  - [Harry Lewis](https://github.com/uphlewis)
+ - [Sam Burns](https://github.com/sam-bee)
  - [All Contributors](../../contributors)
 
 ## License
