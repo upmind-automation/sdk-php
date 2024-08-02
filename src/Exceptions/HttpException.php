@@ -4,29 +4,37 @@ declare(strict_types=1);
 
 namespace Upmind\Sdk\Exceptions;
 
-use Psr\Http\Message\ResponseInterface;
 use Upmind\Sdk\Data\ApiError;
+use Upmind\Sdk\Data\ApiResponse;
 
-class HttpException extends \Exception
+/**
+ * Exception thrown for API error responses.
+ *
+ * @see \Upmind\Sdk\Config::restfulExceptions()
+ */
+class HttpException extends \Exception implements UpmindSdkException
 {
-    private ResponseInterface $response;
+    protected ApiResponse $apiResponse;
 
-    private ApiError $apiError;
-
-    public function __construct(ResponseInterface $response, ApiError $apiError)
+    public function __construct(ApiResponse $apiResponse, ?string $message = null)
     {
-        parent::__construct($response->getReasonPhrase(), $response->getStatusCode());
-        $this->response = $response;
-        $this->apiError = $apiError;
+        $this->apiResponse = $apiResponse;
+        $message = $message ?: $this->getError()->getMessage();
+        parent::__construct($message, $this->getHttpCode());
     }
 
-    public function getResponse(): ResponseInterface
+    public function getHttpCode(): int
     {
-        return $this->response;
+        return $this->apiResponse->getHttpCode();
+    }
+
+    public function getResponse(): ApiResponse
+    {
+        return $this->apiResponse;
     }
 
     public function getError(): ApiError
     {
-        return $this->apiError;
+        return $this->apiResponse->getResponseError();
     }
 }
