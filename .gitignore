@@ -3,3 +3,4 @@ composer.lock
 .vscode/
 *.log
 .php-cs-fixer.cache
+.phpunit.result.cache
