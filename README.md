@@ -57,6 +57,7 @@ $config = new Config(
     brandId: 'your-brand-id',
     withoutNotifications: true, // don't trigger notifications for create/update/delete requests
     debug: true, // stream api requests + responses to STDERR by default
+    restfulExceptions: false, // don't throw exceptions for API error responses
 );
 $api = new Api($config);
 $service = $api->clientService();
