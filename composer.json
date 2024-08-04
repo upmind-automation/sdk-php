@@ -8,6 +8,11 @@
             "Upmind\\Sdk\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Upmind\\Sdk\\Test\\": "tests/phpunit/"
+        }
+    },
     "authors": [
         {
             "name": "Harry Lewis",
