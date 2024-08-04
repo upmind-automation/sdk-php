@@ -1,5 +1,7 @@
 <?php
 
+namespace Upmind\Sdk\Test;
+
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
@@ -10,6 +12,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\NullLogger;
 use Upmind\Sdk\Api;
 use Upmind\Sdk\Config;
+use Upmind\Sdk\Data\QueryParams;
 
 class ApiTest extends TestCase
 {
@@ -61,5 +64,39 @@ class ApiTest extends TestCase
 
         // Excercise subject under test
         $this->sut->get('/target/uri');
+    }
+
+    public function testQueryParamHandling(): void
+    {
+        // In this test, set a query param
+        $queryParams = new QueryParams(['with' => 'something']);
+
+        // Request will be created
+        $request = $this->getMockBuilder(RequestInterface::class)->getMock();
+
+        // The request should have a URI with our query param
+        $this->requestFactory
+            ->expects($this->once())
+            ->method('createRequest')
+            ->with('GET', 'https://api.upmind.io/target/uri?with=something&without_notifications=0')
+            ->willReturn($request);
+
+        // Other misc. setup
+        $this->requestHeadersWillBeSent($request);
+        $this->httpClientWillReturnResponse($request);
+
+        // Exercise subject under test
+        $this->sut->get('/target/uri', $queryParams);
+    }
+
+    private function requestHeadersWillBeSent(MockObject $request): void
+    {
+        $request->expects($this->atLeastOnce())->method('withHeader')->willReturn($request);
+    }
+
+    private function httpClientWillReturnResponse(MockObject $request)
+    {
+        $response = $this->getMockBuilder(ResponseInterface::class)->getMock();
+        $this->httpClient->expects($this->once())->method('sendRequest')->with($request)->willReturn($response);
     }
 }
