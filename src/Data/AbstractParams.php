@@ -85,7 +85,7 @@ abstract class AbstractParams implements JsonSerializable
         return $this->params;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
