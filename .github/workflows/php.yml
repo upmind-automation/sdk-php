@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Run php-cs-fixer
+        run: "./vendor/bin/php-cs-fixer check --config ./.php-cs-fixer.dist.php src/ tests/"
+
       - name: Run PHPStan
         run: composer run-script phpstan
 
