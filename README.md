@@ -2,8 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/upmind/sdk.svg?style=flat-square)](https://packagist.org/packages/upmind/sdk)
 
-**This library is currently in beta and does not cover all features of the Upmind API.**
-
 This SDK can be used to streamline PHP integrations with the Upmind API.
 
 - [Requirements](#requirements)
@@ -207,7 +205,7 @@ $clientId = '467029e9-d574-1484-680f-e10683283ed5';
 $hostingServerId = 'e5750263-4647-9ed1-26a2-1053288d79e9'; // server provision configuration id
 $hostingProductId = 'd6d97847-5d49-2153-2def-d163e080e253'; // catalogue product id
 $premiumSupportProductId = 'd9860720-492e-710d-0d6b-8165d83d345e'; // catalogue product option id
-$hostingLocationProductId = '84856376-2e90-516e-607a-e17d48302de9', // catalogue product attribute id
+$hostingLocationProductId = '84856376-2e90-516e-607a-e17d48302de9'; // catalogue product attribute id
 
 $body = BodyParams::new()
     ->setParam('category_slug', 'new_contract')
