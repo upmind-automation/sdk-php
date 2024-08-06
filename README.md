@@ -110,7 +110,7 @@ if ($response->isSuccessful()) {
 Create methods are typed with DTOs containing setter methods to help you identify which parameters are available. When a resource is created successfully, an `id` will be returned which can be used to fetch and manage the resource later.
 
 ```php
-use Upmind\Sdk\Data\CreateEmailParams;
+use Upmind\Sdk\Data\Services\CreateEmailParams;
 
 $clientId = '467029e9-d574-1484-680f-e10683283ed5';
 $createEmail = CreateEmailParams::new()
@@ -119,6 +119,59 @@ $createEmail = CreateEmailParams::new()
 $response = $api->emailService()->createEmail($clientId, $createEmail);
 if ($response->isSuccessful()) {
     $emailId = $response->getResponseData()['id'];
+    // ...
+}
+```
+
+### Manual Usage
+
+Some resources may not have a corresponding service in the SDK. You can use the `Api` client to make requests manually to any endpoint. Here's an example showing how to import an existing order (contract product) into Upmind.
+
+```php
+use Upmind\Sdk\Data\BodyParams;
+
+$body = BodyParams::new()
+    ->setParam('category_slug', 'new_contract')
+    ->setParam('client_id', $clientId)
+    ->setParam('currency_code', 'GBP')
+    ->setParam('manual_import', true) // setting to true allows us to override activation/due dates
+    ->setParam('activation_date', '2022-05-01') // initial order activation date
+    ->setParam('next_due_date', '2024-10-01') // current date the order is paid up until
+    ->setParam('products', [
+        [
+            'product_id' => 'd6d97847-5d49-2153-2def-d163e080e253', // catalogue product id
+            'quantity' => 1,
+            'billing_cycle_months' => 1, // renews monthly
+            'selling_price' => 5.99, // the net price of the base product
+            'provision_configuration_id' => 'e5750263-4647-9ed1-26a2-1053288d79e9', // the server this order is provisioned on
+            'provision_field_values' => [ // hosting product provision fields
+                'domain' => 'example.com',
+                'username' => 'example2',
+            ],
+            'options' => [
+                [
+                    'product_id' => 'd9860720-492e-710d-0d6b-8165d83d345e', // catalogue product option id
+                    'quantity' => 1,
+                    'billing_cycle_months' => 1,
+                    'selling_price' => 5.00, // the net price of the option
+                ]
+            ],
+            'attributes' => [
+                [
+                    'product_id' => '84856376-2e90-516e-607a-e17d48302de9', // catalogue product attribute id
+                ]
+            ]
+        ]
+    ]);
+try {
+    $responseData = $api->post('/api/admin/orders/quick', $body)
+        ->getResponseData();
+    $orderNumber = $responseData['number'];
+    $contractId = $responseData['contract_id'];
+    $contractProductId = $responseData['products'][0]['contracts_product_id'];
+    // ...
+} catch (\Upmind\Sdk\Exceptions\HttpException $e) {
+    $error = $e->getApiError();
     // ...
 }
 ```
