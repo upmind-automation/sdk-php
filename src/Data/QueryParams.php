@@ -38,7 +38,7 @@ class QueryParams extends AbstractParams
      */
     public function setOrderBy($orderBy): self
     {
-        return $this->setParam('order_by', is_array($orderBy) ? implode(',', $orderBy) : $orderBy);
+        return $this->setParam('order', is_array($orderBy) ? implode(',', $orderBy) : $orderBy);
     }
 
     /**
