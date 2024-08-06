@@ -6,11 +6,12 @@ namespace Upmind\Sdk\Data\Services;
 
 use DateTimeInterface;
 use Upmind\Sdk\Data\AbstractParams;
+use Upmind\Sdk\Data\BodyParams;
 
 /**
  * Parameters for creating a new client email address.
  */
-class CreateEmailParams extends AbstractParams
+class CreateEmailParams extends BodyParams
 {
     /**
      * @return static

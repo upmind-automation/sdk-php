@@ -16,8 +16,8 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Throwable;
 use Upmind\Sdk\Config;
-use Upmind\Sdk\Data\AbstractParams;
 use Upmind\Sdk\Data\ApiResponse;
+use Upmind\Sdk\Data\BodyParams;
 use Upmind\Sdk\Data\QueryParams;
 use Upmind\Sdk\Exceptions\AuthException;
 use Upmind\Sdk\Exceptions\ClientException;
@@ -115,7 +115,7 @@ class Api
      *
      * @throws HttpException if configured
      */
-    public function post(string $uri, AbstractParams $body = null, ?QueryParams $queryParams = null): ApiResponse
+    public function post(string $uri, ?BodyParams $body = null, ?QueryParams $queryParams = null): ApiResponse
     {
         return $this->sendRequest('POST', $uri, $body, $queryParams);
     }
@@ -125,7 +125,7 @@ class Api
      *
      * @throws HttpException if configured
      */
-    public function put(string $uri, AbstractParams $body = null, ?QueryParams $queryParams = null): ApiResponse
+    public function put(string $uri, ?BodyParams $body = null, ?QueryParams $queryParams = null): ApiResponse
     {
         return $this->sendRequest('PUT', $uri, $body, $queryParams);
     }
@@ -135,7 +135,7 @@ class Api
      *
      * @throws HttpException if configured
      */
-    public function patch(string $uri, AbstractParams $body = null, ?QueryParams $queryParams = null): ApiResponse
+    public function patch(string $uri, ?BodyParams $body = null, ?QueryParams $queryParams = null): ApiResponse
     {
         return $this->sendRequest('PATCH', $uri, $body, $queryParams);
     }
@@ -158,7 +158,7 @@ class Api
     public function sendRequest(
         string $method,
         string $uri,
-        ?AbstractParams $bodyParams = null,
+        ?BodyParams $bodyParams = null,
         ?QueryParams $queryParams = null
     ): ApiResponse {
         $queryParams ??= new QueryParams();
@@ -182,11 +182,7 @@ class Api
 
             $request = $request
                 ->withHeader('Content-Type', 'application/json')
-                ->withBody(
-                    $this->streamFactory->createStream(
-                        json_encode($bodyParams, JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE)
-                    )
-                );
+                ->withBody($this->streamFactory->createStream($bodyParams->toJson()));
         }
 
         try {
@@ -215,7 +211,7 @@ class Api
         return $uri . $join . $queryString;
     }
 
-    private function fillDefaultParams(QueryParams $queryParams, ?AbstractParams $bodyParams = null): void
+    private function fillDefaultParams(QueryParams $queryParams, ?BodyParams $bodyParams = null): void
     {
         $fillParams = !empty($bodyParams ? $bodyParams->toArray() : null)
             ? $bodyParams

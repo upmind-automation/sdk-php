@@ -6,11 +6,12 @@ namespace Upmind\Sdk\Data\Services;
 
 use DateTimeInterface;
 use Upmind\Sdk\Data\AbstractParams;
+use Upmind\Sdk\Data\BodyParams;
 
 /**
  * Parameters for creating a new client phone.
  */
-class CreatePhoneParams extends AbstractParams
+class CreatePhoneParams extends BodyParams
 {
     /**
      * Set the international dialling code e.g., +44.
