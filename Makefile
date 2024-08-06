@@ -34,6 +34,10 @@ static-analysis:
 coding-standards:
 	docker exec -it $(CONTAINER_NAME) php ./vendor/bin/php-cs-fixer fix --config=./.php-cs-fixer.dist.php
 
+# Run phpunit
+test:
+	docker exec -it $(CONTAINER_NAME) ./vendor/bin/phpunit
+
 # Clean target
 clean:
 	docker rm -f $(CONTAINER_NAME)
