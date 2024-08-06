@@ -10,6 +10,7 @@ This SDK can be used to streamline PHP integrations with the Upmind API.
 - [Installation](#installation)
 - [Usage](#usage)
   - [Getting Started](#getting-started)
+  - [Exceptions](#exceptions)
   - [Pagination](#pagination)
   - [Relations](#relations)
   - [Creating Resources](#creating-resources)
@@ -57,12 +58,72 @@ $config = new Config(
     brandId: 'your-brand-id',
     withoutNotifications: true, // don't trigger notifications for create/update/delete requests
     debug: true, // stream api requests + responses to STDERR by default
+);
+$api = new Api($config);
+$service = $api->clientService();
+
+$clientId = '467029e9-d574-1484-680f-e10683283ed5';
+
+$response = $service->getClient($clientId);
+$clientData = $response->getResponseData();
+// ...
+```
+
+### Exceptions
+
+All exceptions thrown by this library implement the marker interface `Upmind\Sdk\Exceptions\UpmindSdkException`.
+
+By default, API error (non-2xx) responses will throw an instance of `Upmind\Sdk\Exceptions\HttpException` which contains the API error response data. You can turn off HttpExceptions by instantiating `Config` with `restfulExceptions: false`,
+
+#### HTTP Exceptions Enabled
+
+With HTTP exceptions enabled (default), there is no need to inspect the HTTP code or response body to detect errors, as the SDK will throw an exception for any non-2xx HTTP response.
+
+```php
+use Upmind\Sdk\Api;
+use Upmind\Sdk\Config;
+use Upmind\Sdk\Exceptions\HttpException;
+use Upmind\Sdk\Exceptions\ValidationException;
+
+$config = new Config(
+    token: 'your-api-token',
+);
+$api = new Api($config);
+$service = $api->clientService();
+
+try {
+    $clientId = '467029e9-d574-1484-680f-e10683283ed5';
+
+    $clientData = $service->getClient($clientId)->getResponseData();
+} catch (ValidationException $e) {
+    // HTTP 422 error containing an array of validation errors
+    $error = $e->getApiError();
+    $validationErrors = $e->getValidationErrors();
+    // ...
+} catch (HttpException $e) {
+    // Any other HTTP error response
+    $error = $e->getApiError();
+    // ...
+}
+```
+
+#### HTTP Exceptions Disabled
+
+With HTTP exceptions disabled, you can inspect the ApiResponse to determine whether it succeeded or not.
+
+```php
+use Upmind\Sdk\Api;
+use Upmind\Sdk\Config;
+
+$config = new Config(
+    token: 'your-api-token',
     restfulExceptions: false, // don't throw exceptions for API error responses
 );
 $api = new Api($config);
 $service = $api->clientService();
 
 $clientId = '467029e9-d574-1484-680f-e10683283ed5';
+
 $response = $service->getClient($clientId);
 if ($response->isSuccessful()) {
     $clientData = $response->getResponseData();
@@ -83,7 +144,14 @@ use Upmind\Sdk\Data\QueryParams;
 $queryParams = QueryParams::new()
     ->setLimit(20) // returns up to 20 results
     ->setOffset(100); // skips the first 100 results
-$response = $api->clientService()->listClients($queryParams);
+
+$clients = $api->clientService()
+    ->listClients($queryParams)
+    ->getResponseData();
+foreach ($clients as $clientData) {
+    $clientId = $clientData['id'];
+    // ...
+}
 ```
 
 ### Relations
@@ -96,12 +164,15 @@ use Upmind\Sdk\Data\QueryParams;
 $clientId = '467029e9-d574-1484-680f-e10683283ed5';
 $queryParams = QueryParams::new()
     ->setWith(['emails', 'addresses']); // load the client's emails and addresses
-$response = $api->clientService()->getClient($clientId, $queryParams);
-if ($response->isSuccessful()) {
-    $clientData = $response->getResponseData();
-    foreach ($clientData['emails'] as $emailData) {
-        // ...
-    }
+
+$clientData = $api->clientService()
+    ->getClient($clientId, $queryParams)
+    ->getResponseData();
+foreach ($clientData['emails'] as $emailData) {
+    // ...
+}
+foreach ($clientData['addresses'] as $addressData) {
+    // ...
 }
 ```
 
@@ -116,11 +187,12 @@ $clientId = '467029e9-d574-1484-680f-e10683283ed5';
 $createEmail = CreateEmailParams::new()
     ->setEmail('harry@upmind.com')
     ->setDefault(true);
-$response = $api->emailService()->createEmail($clientId, $createEmail);
-if ($response->isSuccessful()) {
-    $emailId = $response->getResponseData()['id'];
-    // ...
-}
+
+$emailData = $api->emailService()
+    ->createEmail($clientId, $createEmail)
+    ->getResponseData();
+$emailId = $emailData['id'];
+// ...
 ```
 
 ### Manual Usage
@@ -129,6 +201,12 @@ Some resources may not have a corresponding service in the SDK. You can use the 
 
 ```php
 use Upmind\Sdk\Data\BodyParams;
+
+$clientId = '467029e9-d574-1484-680f-e10683283ed5';
+$hostingServerId = 'e5750263-4647-9ed1-26a2-1053288d79e9'; // server provision configuration id
+$hostingProductId = 'd6d97847-5d49-2153-2def-d163e080e253'; // catalogue product id
+$premiumSupportProductId = 'd9860720-492e-710d-0d6b-8165d83d345e'; // catalogue product option id
+$hostingLocationProductId = '84856376-2e90-516e-607a-e17d48302de9', // catalogue product attribute id
 
 $body = BodyParams::new()
     ->setParam('category_slug', 'new_contract')
@@ -139,41 +217,36 @@ $body = BodyParams::new()
     ->setParam('next_due_date', '2024-10-01') // current date the order is paid up until
     ->setParam('products', [
         [
-            'product_id' => 'd6d97847-5d49-2153-2def-d163e080e253', // catalogue product id
+            'product_id' => $hostingProductId,
             'quantity' => 1,
-            'billing_cycle_months' => 1, // renews monthly
-            'selling_price' => 5.99, // the net price of the base product
-            'provision_configuration_id' => 'e5750263-4647-9ed1-26a2-1053288d79e9', // the server this order is provisioned on
+            'billing_cycle_months' => 6, // renews every 6 months
+            'selling_price' => 35.99, // the net price of the base product
+            'provision_configuration_id' => $hostingServerId,
             'provision_field_values' => [ // hosting product provision fields
                 'domain' => 'example.com',
                 'username' => 'example2',
             ],
             'options' => [
                 [
-                    'product_id' => 'd9860720-492e-710d-0d6b-8165d83d345e', // catalogue product option id
+                    'product_id' => $premiumSupportProductId,
                     'quantity' => 1,
-                    'billing_cycle_months' => 1,
-                    'selling_price' => 5.00, // the net price of the option
+                    'billing_cycle_months' => 6, // renews with the base product
+                    'selling_price' => 30.00, // the net price of the option; this gets added to the base product price
                 ]
             ],
             'attributes' => [
                 [
-                    'product_id' => '84856376-2e90-516e-607a-e17d48302de9', // catalogue product attribute id
+                    'product_id' => $hostingLocationProductId,
                 ]
             ]
         ]
     ]);
-try {
-    $responseData = $api->post('/api/admin/orders/quick', $body)
-        ->getResponseData();
-    $orderNumber = $responseData['number'];
-    $contractId = $responseData['contract_id'];
-    $contractProductId = $responseData['products'][0]['contracts_product_id'];
-    // ...
-} catch (\Upmind\Sdk\Exceptions\HttpException $e) {
-    $error = $e->getApiError();
-    // ...
-}
+
+$responseData = $api->post('/api/admin/orders/quick', $body)->getResponseData();
+$orderNumber = $responseData['number'];
+$contractId = $responseData['contract_id'];
+$contractProductId = $responseData['products'][0]['contracts_product_id'];
+// ...
 ```
 
 ## Changelog
