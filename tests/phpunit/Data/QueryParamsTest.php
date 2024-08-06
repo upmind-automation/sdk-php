@@ -18,4 +18,14 @@ class QueryParamsTest extends TestCase
 
         $this->assertEquals(['with' => 'something-else'], $result);
     }
+
+    public function testQueryParamWithIsConvertedToCsv(): void
+    {
+        $queryParams = QueryParams::new()
+            ->setWith(['emails', 'phones']);
+
+        $result = $queryParams->toArray();
+
+        $this->assertEquals(['with' => 'emails,phones'], $result);
+    }
 }
