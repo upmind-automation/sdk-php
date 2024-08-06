@@ -41,7 +41,7 @@ class ServiceLevelTest extends TestCase
         $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
 
         // Keep a record of the body of the request sent to the client. We will need to test the request body directly.
-        $fakeDoRequest = function (RequestInterface  $request) use (&$requestBody, $mockResponse) : ResponseInterface {
+        $fakeDoRequest = function (RequestInterface  $request) use (&$requestBody, $mockResponse): ResponseInterface {
             $requestBody = $request->getBody()->getContents();
             return $mockResponse;
         };
