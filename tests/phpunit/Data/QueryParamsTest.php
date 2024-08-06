@@ -28,4 +28,14 @@ class QueryParamsTest extends TestCase
 
         $this->assertEquals(['with' => 'emails,phones'], $result);
     }
+
+    public function testQueryParamOrderIsConvertedToCsv(): void
+    {
+        $queryParams = QueryParams::new()
+            ->setOrderBy(['-created_at', '-id']);
+
+        $result = $queryParams->toArray();
+
+        $this->assertEquals(['order' => '-created_at,-id'], $result);
+    }
 }
