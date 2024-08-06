@@ -14,6 +14,7 @@ This SDK can be used to streamline PHP integrations with the Upmind API.
   - [Pagination](#pagination)
   - [Relations](#relations)
   - [Creating Resources](#creating-resources)
+  - [Manual Usage](#manual-usage)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
 - [Credits](#credits)
