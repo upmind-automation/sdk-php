@@ -151,7 +151,7 @@ class ApiTest extends TestCase
             false
         ];
 
-        return new class(...$configVals) extends Config {
+        return new class (...$configVals) extends Config {
             private ?string $overrideBrandId = null;
             public function overrideBrandId(string $brandId): void
             {
