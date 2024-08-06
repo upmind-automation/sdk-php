@@ -2,9 +2,12 @@
 
 All notable changes to the package will be documented in this file.
 
-## v1.0.0 - TBC
+## v1.0.0 - 2024-08-06
 
-- Initial stable release
+- Add BodyParams for use in POST, PUT and PATCH requests
+- Fix QueryParams::setOrderBy()
+- Add more unit tests
+- Improve README documentation
 
 ## v0.2.0 - 2024-08-02
 
@@ -17,7 +20,7 @@ All notable changes to the package will be documented in this file.
 - Add library exceptions
   - Wrap connection errors in a custom exception
   - Throw restful exceptions for API error responses
-  - Add config var to disable restul exceptions
+  - Add config var to disable restful exceptions
 
 ## v0.1.0 - 2024-07-24
 
