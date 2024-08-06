@@ -6,11 +6,12 @@ namespace Upmind\Sdk\Data\Services;
 
 use DateTimeInterface;
 use Upmind\Sdk\Data\AbstractParams;
+use Upmind\Sdk\Data\BodyParams;
 
 /**
  * Parameters for updating an existing client company.
  */
-class UpdateCompanyParams extends AbstractParams
+class UpdateCompanyParams extends BodyParams
 {
     /**
      * @return static

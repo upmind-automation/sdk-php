@@ -6,11 +6,12 @@ namespace Upmind\Sdk\Data\Services;
 
 use DateTimeInterface;
 use Upmind\Sdk\Data\AbstractParams;
+use Upmind\Sdk\Data\BodyParams;
 
 /**
  * Parameters for updating an existing client.
  */
-class UpdateClientParams extends AbstractParams
+class UpdateClientParams extends BodyParams
 {
     public function setFirstName(string $firstName): self
     {

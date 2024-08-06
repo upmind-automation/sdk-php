@@ -6,11 +6,12 @@ namespace Upmind\Sdk\Data\Services;
 
 use DateTimeInterface;
 use Upmind\Sdk\Data\AbstractParams;
+use Upmind\Sdk\Data\BodyParams;
 
 /**
  * Parameters for creating a new client.
  */
-class CreateClientParams extends AbstractParams
+class CreateClientParams extends BodyParams
 {
     /**
      * @return static
